@@ -1,2 +1,26 @@
-<!--index.wxml-->
-<view class="container">文章列表（待实现）</view>
+<!--pages/index/index.wxml-->
+<view class="page">
+  <login-modal />
+  <scroll-view class="filters" scroll-x>
+    <view class="chip {{activeCategory === '' ? 'active' : ''}}" bind:tap="selectCategory" data-id="">全部</view>
+    <view class="chip {{activeCategory === item.id ? 'active' : ''}}" wx:for="{{categories}}" wx:key="id" bind:tap="selectCategory" data-id="{{item.id}}">{{item.name}}</view>
+  </scroll-view>
+  <scroll-view class="tags" scroll-x wx:if="{{tags.length}}">
+    <view class="tag {{activeTag === item.id ? 'active' : ''}}" wx:for="{{tags}}" wx:key="id" bind:tap="selectTag" data-id="{{item.id}}">{{item.name}}</view>
+  </scroll-view>
+  <view class="list">
+    <view class="card" wx:for="{{articles}}" wx:key="id" bind:tap="toDetail" data-id="{{item.id}}">
+      <image wx:if="{{item.cover_url}}" class="cover" src="{{item.cover_url}}" mode="aspectFill" />
+      <view class="info">
+        <view class="title">{{item.title}}</view>
+        <view class="summary" wx:if="{{item.summary}}">{{item.summary}}</view>
+        <view class="meta">
+          <text wx:if="{{item.category}}" class="cat">{{item.category.name}}</text>
+          <text class="views">{{item.view_count}} 阅读</text>
+        </view>
+      </view>
+    </view>
+    <view class="empty" wx:if="{{!loading && articles.length === 0}}">暂无文章</view>
+    <view class="loading" wx:if="{{loading}}">加载中…</view>
+  </view>
+</view>

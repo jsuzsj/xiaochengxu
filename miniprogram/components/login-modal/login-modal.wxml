@@ -1,2 +1,14 @@
-<!--login-modal.wxml-->
-<!-- 资料弹窗占位，阶段4 实现 -->
+<!--components/login-modal/login-modal.wxml-->
+<view class="mask" wx:if="{{visible}}">
+  <view class="box">
+    <view class="title">完善资料</view>
+    <view class="desc">完善昵称与头像后即可阅读</view>
+    <button class="avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onAvatar">
+      <image wx:if="{{avatarUrl}}" class="avatar" src="{{avatarUrl}}" mode="aspectFill"/>
+      <view wx:else class="avatar-placeholder">点击选择头像</view>
+    </button>
+    <input type="nickname" class="nick" placeholder="点击选择微信昵称" bindinput="onNickname" value="{{nickname}}"/>
+    <button class="submit" bind:tap="submit">保存</button>
+    <view class="skip" bind:tap="skip">暂不填写</view>
+  </view>
+</view>

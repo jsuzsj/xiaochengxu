@@ -1,2 +1,9 @@
-<!--detail.wxml-->
-<view>文章详情（待实现）</view>
+<!--pages/detail/detail.wxml-->
+<view class="page" wx:if="{{article}}">
+  <view class="title">{{article.title}}</view>
+  <view class="meta">
+    <text wx:if="{{article.category}}" class="cat">{{article.category.name}}</text>
+    <text class="views">{{article.view_count}} 阅读</text>
+  </view>
+  <rich-text class="content" nodes="{{article.content}}" />
+</view>

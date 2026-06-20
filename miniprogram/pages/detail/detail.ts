@@ -1,4 +1,11 @@
-// pages/detail/detail.ts — 文章详情（阶段4 实现）
+// pages/detail/detail.ts
+import { request } from '../../utils/request';
+
 Page({
-  data: {},
-})
+  data: { article: null as any },
+
+  async onLoad(options: any) {
+    const article = await request({ url: `/articles/${options.id}` });
+    this.setData({ article });
+  },
+});

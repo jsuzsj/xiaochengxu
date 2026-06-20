@@ -1,2 +1,9 @@
-<!--mine.wxml-->
-<view>我的（待实现）</view>
+<!--pages/mine/mine.wxml-->
+<view class="page">
+  <login-modal />
+  <view class="profile">
+    <image class="avatar" src="{{user.avatar_url || '/images/head.png'}}" mode="aspectFill" />
+    <view class="nickname">{{user.nickname || '微信用户'}}</view>
+  </view>
+  <button class="logout" bind:tap="logout">退出登录</button>
+</view>
