@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
+import { AuthModule } from './auth/auth.module';
 import databaseConfig from './config/database.config';
 import wxConfig from './config/wx.config';
 
@@ -30,6 +31,7 @@ import wxConfig from './config/wx.config';
       rootPath: join(__dirname, '..', 'uploads'),
       serveRoot: '/uploads',
     }),
+    AuthModule,
   ],
 })
 export class AppModule {}
