@@ -1,9 +1,12 @@
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { APP_FILTER, APP_PIPE } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
+import { CategoriesModule } from './categories/categories.module';
+import { AllExceptionsFilter } from './common/all-exceptions.filter';
 import databaseConfig from './config/database.config';
 import wxConfig from './config/wx.config';
 
@@ -32,6 +35,19 @@ import wxConfig from './config/wx.config';
       serveRoot: '/uploads',
     }),
     AuthModule,
+    CategoriesModule,
+  ],
+  providers: [
+    {
+      provide: APP_PIPE,
+      useFactory: () =>
+        new ValidationPipe({
+          whitelist: true,
+          transform: true,
+          forbidNonWhitelisted: true,
+        }),
+    },
+    { provide: APP_FILTER, useClass: AllExceptionsFilter },
   ],
 })
 export class AppModule {}
