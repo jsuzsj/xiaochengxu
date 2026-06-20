@@ -54,6 +54,10 @@ export class Article {
   author: Admin | null;
 
   @ManyToMany(() => Tag)
-  @JoinTable({ name: 'article_tags' })
+  @JoinTable({
+    name: 'article_tags',
+    joinColumn: { name: 'article_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'tag_id', referencedColumnName: 'id' },
+  })
   tags: Tag[];
 }
