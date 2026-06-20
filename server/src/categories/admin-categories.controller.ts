@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { AdminGuard } from '../auth/admin.guard';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
@@ -8,6 +8,11 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 @UseGuards(AdminGuard)
 export class AdminCategoriesController {
   constructor(private svc: CategoriesService) {}
+
+  @Get()
+  list() {
+    return this.svc.list();
+  }
 
   @Post()
   create(@Body() dto: CreateCategoryDto) {

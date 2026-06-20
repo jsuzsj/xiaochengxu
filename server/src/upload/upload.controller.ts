@@ -30,6 +30,6 @@ export class UploadController {
   upload(@UploadedFile() file: Express.Multer.File) {
     if (!file) throw new BadRequestException('文件必填');
     if (!/^image\//.test(file.mimetype)) throw new BadRequestException('仅支持图片文件');
-    return { url: `/uploads/${file.filename}` };
+    return { url: `${process.env.APP_BASE_URL || ''}/uploads/${file.filename}` };
   }
 }

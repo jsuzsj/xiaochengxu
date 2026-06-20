@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { AdminGuard } from '../auth/admin.guard';
 import { CreateTagDto } from './dto/create-tag.dto';
 import { UpdateTagDto } from './dto/update-tag.dto';
@@ -8,6 +8,11 @@ import { TagsService } from './tags.service';
 @UseGuards(AdminGuard)
 export class AdminTagsController {
   constructor(private svc: TagsService) {}
+
+  @Get()
+  list() {
+    return this.svc.list();
+  }
 
   @Post()
   create(@Body() dto: CreateTagDto) {

@@ -69,6 +69,10 @@ export class ArticlesService {
     return this.repo.increment({ id }, 'view_count', 1);
   }
 
+  findOne(id: string) {
+    return this.repo.findOne({ where: { id }, relations: { category: true, tags: true } });
+  }
+
   async adminList(q: AdminListQuery) {
     const qb = this.repo
       .createQueryBuilder('a')

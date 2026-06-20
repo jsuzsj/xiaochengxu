@@ -34,10 +34,10 @@ describe('Upload (e2e)', () => {
       .set('Authorization', `Bearer ${adminToken}`)
       .attach('file', PNG_1x1, 'test.png');
     expect(r.status).toBe(201);
-    expect(r.body.url).toMatch(/^\/uploads\/.+\.png$/);
+    expect(r.body.url).toMatch(/\/uploads\/.+\.png$/);
 
     // 文件已落盘（静态 HTTP 服务在真实 listen 下由 ServeStaticModule 提供，联调阶段验证）
-    const filename = (r.body.url as string).replace('/uploads/', '');
+    const filename = (r.body.url as string).split('/uploads/')[1];
     expect(existsSync(join(process.env.UPLOAD_DIR || 'uploads', filename))).toBe(true);
   });
 

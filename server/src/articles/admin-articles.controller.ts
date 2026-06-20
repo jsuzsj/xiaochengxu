@@ -43,6 +43,11 @@ export class AdminArticlesController {
     });
   }
 
+  @Get(':id')
+  detail(@Param('id') id: string) {
+    return this.svc.findOne(id);
+  }
+
   @Post()
   create(@Req() req: AuthedRequest, @Body() dto: CreateArticleDto) {
     return this.svc.create(req.user.id, dto);
