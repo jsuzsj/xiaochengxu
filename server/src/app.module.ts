@@ -8,6 +8,9 @@ import { AuthModule } from './auth/auth.module';
 import { ArticlesModule } from './articles/articles.module';
 import { CategoriesModule } from './categories/categories.module';
 import { TagsModule } from './tags/tags.module';
+import { UploadModule } from './upload/upload.module';
+import { UsersModule } from './users/users.module';
+import { StatsModule } from './stats/stats.module';
 import { AllExceptionsFilter } from './common/all-exceptions.filter';
 import databaseConfig from './config/database.config';
 import wxConfig from './config/wx.config';
@@ -33,13 +36,16 @@ import wxConfig from './config/wx.config';
       }),
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'uploads'),
+      rootPath: join(process.cwd(), process.env.UPLOAD_DIR || 'uploads'),
       serveRoot: '/uploads',
     }),
     AuthModule,
     CategoriesModule,
     TagsModule,
     ArticlesModule,
+    UploadModule,
+    UsersModule,
+    StatsModule,
   ],
   providers: [
     {
