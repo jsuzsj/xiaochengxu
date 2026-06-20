@@ -5,6 +5,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
+import { ArticlesModule } from './articles/articles.module';
 import { CategoriesModule } from './categories/categories.module';
 import { TagsModule } from './tags/tags.module';
 import { AllExceptionsFilter } from './common/all-exceptions.filter';
@@ -38,6 +39,7 @@ import wxConfig from './config/wx.config';
     AuthModule,
     CategoriesModule,
     TagsModule,
+    ArticlesModule,
   ],
   providers: [
     {
