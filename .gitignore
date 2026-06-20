@@ -1,0 +1,32 @@
+# dependencies
+node_modules/
+
+# builds
+admin/dist/
+server/dist/
+
+# uploads (keep dir, ignore content)
+server/uploads/*
+!server/uploads/.gitkeep
+
+# env
+.env
+.env.local
+*.env
+
+# logs
+*.log
+npm-debug.log*
+
+# superpowers brainstorm artifacts
+.superpowers/
+
+# OS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# typescript build info
+*.tsbuildinfo
