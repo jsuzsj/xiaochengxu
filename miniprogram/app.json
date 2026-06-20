@@ -1,13 +1,12 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/cases/cases",
-    "pages/logs/logs",
-    "pages/contact/contact"
+    "pages/detail/detail",
+    "pages/mine/mine"
   ],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "Donut · 小程序多端框架",
+    "navigationBarTitleText": "文章",
     "navigationBarBackgroundColor": "#ffffff"
   },
   "tabBar": {
@@ -18,18 +17,17 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "首页",
+        "text": "文章",
         "iconPath": "images/house.png",
         "selectedIconPath": "images/house1.png"
       },
       {
-        "pagePath": "pages/contact/contact",
-        "text": "联系我们",
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
         "iconPath": "images/bubble_circle.png",
         "selectedIconPath": "images/bubble_circle1.png"
       }
-    ],
-    "position": "bottom"
+    ]
   },
   "style": "v2",
   "componentFramework": "glass-easel",
