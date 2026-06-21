@@ -32,7 +32,7 @@ npm run build          # 产物 dist/
 `server/.env`（生产）：
 
 ```bash
-DATABASE_HOST=... DATABASE_PORT=5432 DATABASE_USER=... DATABASE_PASSWORD=... DATABASE_DB=article_app
+DATABASE_HOST=... DATABASE_PORT=15432 DATABASE_USER=... DATABASE_PASSWORD=... DATABASE_DB=article_app
 JWT_SECRET=<强随机串>
 JWT_READER_EXPIRES=7d
 JWT_ADMIN_EXPIRES=1d
@@ -65,8 +65,8 @@ APP_BASE_URL=https://your-domain.com   # 上传图片返回绝对 URL；小程�
 
 ```bash
 cd server && docker compose up -d   # PostgreSQL
-cd server && npm run start:dev      # :3000
-cd admin && npm run dev             # :5173
+cd server && npm run start:dev      # :9800
+cd admin && npm run dev             # :7456
 # 微信开发者工具打开 miniprogram/，关闭"不校验合法域名"
 cd server && npm run test:e2e       # 32 个 e2e
 ```

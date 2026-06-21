@@ -1,6 +1,6 @@
 // miniprogram/utils/request.ts
 // 开发期 BASE 指向本地后端；上线改为已备案 HTTPS 域名，并在小程序后台配置 request 合法域名
-const BASE = 'http://localhost:3000/api';
+const BASE = 'http://localhost:9800/api';
 
 let token = wx.getStorageSync('token') || '';
 
