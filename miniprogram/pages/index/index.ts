@@ -31,14 +31,12 @@ Page({
     if (this.data.loading) return;
     const page = reset ? 1 : this.data.page;
     this.setData({ loading: true });
+    const data: Record<string, unknown> = { page, size: this.data.size };
+    if (this.data.activeCategory) data.category = this.data.activeCategory;
+    if (this.data.activeTag) data.tag = this.data.activeTag;
     const res = await request<{ items: any[]; total: number }>({
       url: '/articles',
-      data: {
-        category: this.data.activeCategory || undefined,
-        tag: this.data.activeTag || undefined,
-        page,
-        size: this.data.size,
-      },
+      data,
     });
     const items = res?.items || [];
     const merged = reset ? items : this.data.articles.concat(items);

@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import { IsInt, IsOptional, IsString, Min } from 'class-validator';
 
 export class ListArticleQueryDto {
@@ -12,10 +13,12 @@ export class ListArticleQueryDto {
   @IsInt()
   @Min(1)
   @IsOptional()
+  @Type(() => Number)
   page?: number;
 
   @IsInt()
   @Min(1)
   @IsOptional()
+  @Type(() => Number)
   size?: number;
 }
