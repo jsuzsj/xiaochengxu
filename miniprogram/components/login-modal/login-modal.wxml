@@ -8,6 +8,7 @@
       <view wx:else class="avatar-placeholder">点击选择头像</view>
     </button>
     <input type="nickname" class="nick" placeholder="点击选择微信昵称" bindinput="onNickname" value="{{nickname}}"/>
+    <input type="number" class="phone" maxlength="11" placeholder="手机号（选填）" bindinput="onPhone" value="{{phone}}"/>
     <button class="submit" bind:tap="submit">保存</button>
     <view class="skip" bind:tap="skip">暂不填写</view>
   </view>

@@ -2,7 +2,7 @@
 import { request } from '../../utils/request';
 
 Component({
-  data: { visible: false, nickname: '', avatarUrl: '' },
+  data: { visible: false, nickname: '', avatarUrl: '', phone: '' },
   lifetimes: {
     attached() {
       this.tick();
@@ -23,11 +23,14 @@ Component({
     onAvatar(e: any) {
       this.setData({ avatarUrl: e.detail.avatarUrl });
     },
+    onPhone(e: any) {
+      this.setData({ phone: e.detail.value });
+    },
     async submit() {
       await request({
         url: '/auth/profile',
         method: 'POST',
-        data: { nickname: this.data.nickname, avatarUrl: this.data.avatarUrl },
+        data: { nickname: this.data.nickname, avatarUrl: this.data.avatarUrl, phone: this.data.phone },
       });
       const app = getApp<{ globalData: any }>();
       if (app?.globalData) {
