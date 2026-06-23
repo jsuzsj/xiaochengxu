@@ -17,6 +17,9 @@ export class User {
   @Column({ name: 'avatar_url', nullable: true, type: 'varchar' })
   avatar_url: string | null;
 
+  @Column({ name: 'phone', nullable: true, type: 'varchar', length: 11 })
+  phone: string | null;
+
   @CreateDateColumn({ name: 'created_at' })
   created_at: Date;
 
