@@ -29,7 +29,22 @@ export const adminLogin = (data: { username: string; password: string }) =>
   http.post('/admin/auth/login', data).then((r) => r.data);
 
 // stats
-export const getStats = () => http.get('/admin/stats').then((r) => r.data);
+export interface Stats {
+  readerTotal: number;
+  readerNew: { today: number; d7: number; d30: number };
+  active: { today: number; d7: number; d30: number };
+  viewTotal: number;
+  view: { today: number; d7: number; d30: number };
+  articleTotal: number;
+  articlePublished: number;
+  readerTrend: { date: string; count: number }[];
+  activeTrend: { date: string; count: number }[];
+  viewTrend: { date: string; count: number }[];
+  categoryDist: { name: string; count: number }[];
+  tagDist: { name: string; count: number }[];
+  topArticles: { id: string; title: string; view_count: number }[];
+}
+export const getStats = (): Promise<Stats> => http.get('/admin/stats').then((r) => r.data);
 
 // categories
 export const listCategories = () => http.get('/admin/categories').then((r) => r.data);
