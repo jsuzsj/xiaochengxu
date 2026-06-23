@@ -3,11 +3,11 @@
   <view class="box">
     <view class="title">完善资料</view>
     <view class="desc">完善昵称与头像后即可阅读</view>
-    <button class="avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onAvatar">
+    <button class="avatar-btn" bindtap="onChooseAvatar">
       <image wx:if="{{avatarUrl}}" class="avatar" src="{{avatarUrl}}" mode="aspectFill"/>
       <view wx:else class="avatar-placeholder">点击选择头像</view>
     </button>
-    <input type="nickname" class="nick" placeholder="点击选择微信昵称" bindinput="onNickname" value="{{nickname}}"/>
+    <input type="text" class="nick" placeholder="请输入昵称（选填）" bindinput="onNickname" value="{{nickname}}"/>
     <input type="number" class="phone" maxlength="11" placeholder="手机号（选填）" bindinput="onPhone" value="{{phone}}"/>
     <button class="submit" bind:tap="submit">保存</button>
     <view class="skip" bind:tap="skip">暂不填写</view>

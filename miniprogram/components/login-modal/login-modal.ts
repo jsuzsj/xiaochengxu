@@ -20,8 +20,16 @@ Component({
     onNickname(e: any) {
       this.setData({ nickname: e.detail.value });
     },
-    onAvatar(e: any) {
-      this.setData({ avatarUrl: e.detail.avatarUrl });
+    onChooseAvatar() {
+      wx.chooseMedia({
+        count: 1,
+        mediaType: ['image'],
+        sourceType: ['album', 'camera'],
+        success: (res) => {
+          const file = res.tempFiles && res.tempFiles[0];
+          if (file) this.setData({ avatarUrl: file.tempFilePath });
+        },
+      });
     },
     onPhone(e: any) {
       this.setData({ phone: e.detail.value });
