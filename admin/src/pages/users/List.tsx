@@ -30,6 +30,7 @@ export default function UserList() {
       render: (_: unknown, r: any) => <Avatar src={r.avatar_url}>{(r.nickname || '?')[0]}</Avatar>,
     },
     { title: '昵称', dataIndex: 'nickname' },
+    { title: '手机号', dataIndex: 'phone', render: (v: string | null) => v || '-' },
     {
       title: '注册时间',
       dataIndex: 'created_at',
