@@ -5,11 +5,11 @@ import { Article } from '../entities/article.entity';
 import { ReadRecord } from '../entities/read-record.entity';
 import { User } from '../entities/user.entity';
 
-interface TrendPoint {
+export interface TrendPoint {
   date: string;
   count: number;
 }
-interface Bucket {
+export interface Bucket {
   today: number;
   d7: number;
   d30: number;
@@ -96,7 +96,7 @@ export class StatsService {
     };
   }
 
-  private async countBuckets(repo: Repository<unknown>): Promise<Bucket> {
+  private async countBuckets(repo: Repository<any>): Promise<Bucket> {
     const today = await repo.createQueryBuilder('e').where('e.created_at >= current_date').getCount();
     const d7 = await repo
       .createQueryBuilder('e')
@@ -118,7 +118,7 @@ export class StatsService {
     return { today, d7, d30 };
   }
 
-  private async dailyCount(repo: Repository<unknown>): Promise<TrendPoint[]> {
+  private async dailyCount(repo: Repository<any>): Promise<TrendPoint[]> {
     const rows = await repo
       .createQueryBuilder('e')
       .select("to_char(date_trunc('day', e.created_at), 'YYYY-MM-DD')", 'd')
