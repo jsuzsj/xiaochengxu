@@ -16,7 +16,7 @@ export async function createApp(): Promise<INestApplication> {
 export async function cleanDb(app: INestApplication): Promise<void> {
   const ds = app.get(DataSource);
   await ds.query(
-    'TRUNCATE users, admins, articles, categories, tags, article_tags RESTART IDENTITY CASCADE',
+    'TRUNCATE users, admins, articles, categories, tags, article_tags, read_records RESTART IDENTITY CASCADE',
   );
 }
 

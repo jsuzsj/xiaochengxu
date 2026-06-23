@@ -47,4 +47,27 @@ describe('Auth (e2e)', () => {
     const r = await request(app.getHttpServer()).post('/api/auth/profile').send({ nickname: 'x' });
     expect(r.status).toBe(401);
   });
+
+  it('POST /api/auth/profile accepts valid phone', async () => {
+    const { token } = (
+      await request(app.getHttpServer()).post('/api/auth/login').send({ code: 'phone-1' })
+    ).body;
+    const r = await request(app.getHttpServer())
+      .post('/api/auth/profile')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ phone: '13800138000' });
+    expect(r.status).toBe(201);
+    expect(r.body.phone).toBe('13800138000');
+  });
+
+  it('POST /api/auth/profile rejects bad phone format → 400', async () => {
+    const { token } = (
+      await request(app.getHttpServer()).post('/api/auth/login').send({ code: 'phone-2' })
+    ).body;
+    const r = await request(app.getHttpServer())
+      .post('/api/auth/profile')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ phone: '123' });
+    expect(r.status).toBe(400);
+  });
 });

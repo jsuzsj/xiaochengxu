@@ -45,6 +45,7 @@ export class AuthService {
     const patch: Partial<User> = {};
     if (dto.nickname !== undefined) patch.nickname = dto.nickname;
     if (dto.avatarUrl !== undefined) patch.avatar_url = dto.avatarUrl;
+    if (dto.phone !== undefined) patch.phone = dto.phone;
     if (Object.keys(patch).length > 0) {
       await this.userRepo.update(userId, patch);
     }
