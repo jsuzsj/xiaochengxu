@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Admin } from '../entities/admin.entity';
 import { Article } from '../entities/article.entity';
+import { ReadRecord } from '../entities/read-record.entity';
 import { Category } from '../entities/category.entity';
 import { Tag } from '../entities/tag.entity';
 import { CreateArticleDto } from './dto/create-article.dto';
@@ -38,7 +39,10 @@ function toListVm(a: Article) {
 
 @Injectable()
 export class ArticlesService {
-  constructor(@InjectRepository(Article) private repo: Repository<Article>) {}
+  constructor(
+    @InjectRepository(Article) private repo: Repository<Article>,
+    @InjectRepository(ReadRecord) private readRepo: Repository<ReadRecord>,
+  ) {}
 
   async listPublished(q: ListPublishedQuery) {
     const qb = this.repo
@@ -67,6 +71,16 @@ export class ArticlesService {
 
   incrView(id: string) {
     return this.repo.increment({ id }, 'view_count', 1);
+  }
+
+  async recordRead(userId: string, articleId: string): Promise<void> {
+    try {
+      await this.readRepo.save(
+        this.readRepo.create({ user_id: userId, article_id: articleId }),
+      );
+    } catch {
+      // 容错：read_records 插入失败不阻断详情返回
+    }
   }
 
   findOne(id: string) {

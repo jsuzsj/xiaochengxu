@@ -1,5 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
+import { DataSource } from 'typeorm';
 import { cleanDb, createApp, loginAsReader, seedAdmin } from './helpers';
 
 describe('Articles (e2e)', () => {
@@ -167,5 +168,21 @@ describe('Articles (e2e)', () => {
       .set('Authorization', `Bearer ${readerToken}`)
       .send({ title: 'x', content: 'x', category_id: categoryId });
     expect(r.status).toBe(403);
+  });
+
+  it('reader detail inserts a read_record; repeat inserts another', async () => {
+    const pub = (await createArticle({ title: '阅读', status: 1 })).body;
+    await request(app.getHttpServer())
+      .get(`/api/articles/${pub.id}`)
+      .set('Authorization', `Bearer ${readerToken}`)
+      .expect(200);
+    await request(app.getHttpServer())
+      .get(`/api/articles/${pub.id}`)
+      .set('Authorization', `Bearer ${readerToken}`)
+      .expect(200);
+    const rows = await app
+      .get(DataSource)
+      .query('SELECT count(*)::int AS c FROM read_records WHERE article_id=$1', [pub.id]);
+    expect(rows[0].c).toBe(2);
   });
 });

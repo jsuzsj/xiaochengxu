@@ -1,7 +1,11 @@
-import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Query, Req, UseGuards } from '@nestjs/common';
 import { ReaderGuard } from '../auth/reader.guard';
 import { ListArticleQueryDto } from './dto/list-article-query.dto';
 import { ArticlesService } from './articles.service';
+
+interface AuthedRequest {
+  user: { id: string; role: string };
+}
 
 @Controller('api/articles')
 @UseGuards(ReaderGuard)
@@ -19,9 +23,10 @@ export class ArticlesController {
   }
 
   @Get(':id')
-  async detail(@Param('id') id: string) {
+  async detail(@Req() req: AuthedRequest, @Param('id') id: string) {
     const a = await this.svc.getPublished(id);
     await this.svc.incrView(id);
+    await this.svc.recordRead(req.user.id, id);
     a.view_count += 1;
     return a;
   }
